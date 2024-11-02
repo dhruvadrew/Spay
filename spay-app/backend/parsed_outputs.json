@@ -1,0 +1,32 @@
+[
+  {
+    "recommendations": [
+      {
+        "symbol": "META",
+        "shares_to_sell": 33.34,
+        "expected_cash": 10002,
+        "reasoning": "META has the worst predicted decline next month (-7.2%) among the provided options and a substantial short-term decline as well. Selling a portion prioritizes minimizing losses on this stock."
+      }
+    ],
+    "total_cash_generated": 10002,
+    "strategy_explanation": "This strategy prioritizes minimizing potential future losses by selling META, the worst-performing stock based on next month's prediction. Selling enough META generates the required cash, reducing overall portfolio risk."
+  },
+  {
+    "recommendations": [
+      {
+        "symbol": "GOOGL",
+        "shares_to_sell": 1.79,
+        "expected_cash": 5012,
+        "reasoning": "GOOGL also has a significant long-term predicted loss (-7.3% next month), close to that of META. Selling a smaller portion diversifies the sale across holdings."
+      },
+      {
+        "symbol": "META",
+        "shares_to_sell": 16.66,
+        "expected_cash": 4998,
+        "reasoning": "META has the worst predicted decline next month (-7.2%). Selling a portion helps generate the target amount and partially mitigates losses from this stock."
+      }
+    ],
+    "total_cash_generated": 10010,
+    "strategy_explanation": "This strategy diversifies the sale across GOOGL and META to balance generating cash with mitigating potential losses from the worst-performing stocks in the portfolio based on their next-month decline predictions."
+  }
+]
