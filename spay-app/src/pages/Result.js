@@ -70,21 +70,21 @@ function Result() {
         }
       ];
 
-    useEffect(() => {
-        getData();
-    }, []);
+    // useEffect(() => {
+    //     getData();
+    // }, []);
 
-    const getData = async () => {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-            .then(response => {
-                setData(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    };
+    // const getData = async () => {
+    //     axios.get('https://jsonplaceholder.typicode.com/posts')
+    //         .th`en`(response => {
+    //             setData(response.data);
+    //             setLoading(false);
+    //         })
+    //         .catch(error => {
+    //             setError(error);
+    //             setLoading(false);
+    //         });
+    // };
 
     return (
         <div style={styles.container}>

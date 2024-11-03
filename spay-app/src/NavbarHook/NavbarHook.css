@@ -3,7 +3,7 @@
   width: 100%;
   top: 0;
   left: 0;
-  background-color: transparent;
+  background: #161616; /* Dark background color */
   z-index: var(--z-fixed);
 }
 
@@ -13,9 +13,7 @@
   justify-content: space-between;
   position: relative;
   height: var(--header-height);
-  margin: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  padding: 1rem;
 }
 
 .nav__logo {
@@ -33,7 +31,7 @@
 .nav__toggle,
 .nav__close {
   font-size: 1.5rem;
-  color: var(--title-color);
+  color: #fff; /* Adjust text color to white for visibility */
   cursor: pointer;
 }
 
@@ -54,7 +52,7 @@
 }
 
 .nav__link {
-  color: var(--title-color);
+  color: #fff; /* Adjusted for dark background */
   font-weight: var(--font-semi-bold);
   transition: color 0.4s;
 }
