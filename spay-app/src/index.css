@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Merriweather+Sans:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Merriweather+Sans:ital,wght@0,600&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
@@ -12,7 +12,7 @@
   --text-color: hsl(0, 0%, 75%);
   --body-color: hsl(0, 0%, 6%);
   --body-font: "Montserrat", sans-serif;
-  --second-font: "Audiowide", sans-serif;
+  --second-font: "Merriweather Sans", sans-serif;
   --h2-font-size: 1.25rem;
   --small-font-size: 0.813rem;
   --font-semi-bold: 600;

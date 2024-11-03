@@ -5,6 +5,7 @@ import Navbar from "./Navbar/Navbar";
 import NavbarHook from "./NavbarHook/NavbarHook";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
+import Result from "./pages/Result";
 
 const App = () => {
   return (
