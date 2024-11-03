@@ -6,6 +6,7 @@ import NavbarHook from "./NavbarHook/NavbarHook";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Result from "./pages/Result";
+import Resultcopy from "./pages/Result-copy";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/result-copy" element={<Resultcopy />} />
           {/* Define other routes that you need*/}
         </Routes>
       </main>

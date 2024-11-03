@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 
 export const InfoSec = styled.div`
-    color: #fff;
-    padding: 160px 0;
-    background: ${({lightBg}) => (lightBg ? '#fff' : '#101522')};
+  color: #fff;
+  padding: 10em 0;
+  background: ${({lightBg}) => (lightBg ? '#181818' : '#181818')};
+  width: 93.25vw;
+  margin-left: 2vw;
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const InfoRow = styled.div`
@@ -49,7 +55,7 @@ export const TextWrapper = styled.div`
   }
 
   @media (min-width: 320px) and (max-width: 480px) {
-    padding-bottom: 65px;  
+    padding-bottom: 65px;
   }
 `;
 

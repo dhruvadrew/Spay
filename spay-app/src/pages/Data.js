@@ -4,17 +4,17 @@ export const homeObjOne = {
     lightTopLine: true,
     lightText: true,
     lightTextDesc: true,
-    topLine: 'Marketing Agency',
-    headline: 'Lead Generation Specialist for Online Businesses',
+    topLine: 'by Better Blue',
+    headline: 'Spay: Let Your Stocks Do the Paying',
     description:
-      'We help business owners increase their revenue. Our team of unique specialist can help you achieve your business goals.',
+      'Turn low-performing stocks into instant spending power. Sell off weak assets automatically at checkout—no credit card needed.',
     buttonLabel: 'Get Started',
     imgStart: '',
-    img: require('../images/test1.png'),
+    img: require('../images/report.png'),
     alt: 'Credit Card',
     start: ''
   };
-  
+
   export const homeObjTwo = {
     primary: true,
     lightBg: false,
@@ -31,7 +31,7 @@ export const homeObjOne = {
     alt: 'Vault',
     start: ''
   };
-  
+
   export const homeObjThree = {
     primary: false,
     lightBg: true,
@@ -49,7 +49,7 @@ export const homeObjOne = {
     alt: 'Vault',
     start: 'true'
   };
-  
+
   export const homeObjFour = {
     primary: true,
     lightBg: false,

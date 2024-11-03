@@ -41,7 +41,7 @@ export const Container = styled.div`
 
 export const Button = styled.button`
   border-radius: 4px;
-  background: ${({ primary }) => (primary ? '#4B59F7' : '#0467FB')};
+  background: ${({ primary }) => (primary ? 'linear-gradient(90deg, #87d647, #339b67)' : '#0467FB')};
   white-space: nowrap;
   padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
   color: #fff;
@@ -50,9 +50,9 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
   &:hover {
-    transition: all 0.3s ease-out;
-    background: #fff;
-    background-color: ${({ primary }) => (primary ? '#0467FB' : '#4B59F7')};
+    transition: all 5s ease-out;
+    background: ${({ primary }) => (primary ? 'linear-gradient(90deg, #339b67, #87d647)' : '#0467FB')};
+    background-color: ${({ primary }) => (primary ? 'linear-gradient(90deg, #339b67, #87d647)' : '#0467FB')};
   }
   @media screen and (max-width: 960px) {
     width: 100%;
@@ -60,4 +60,4 @@ export const Button = styled.button`
 `;
 
 
-export default  GlobalStyles;   
+export default  GlobalStyles;

@@ -19,11 +19,14 @@ const Store = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <Box sx={{ width: '100%', margin: '20px', bgcolor: '#121212', color: '#ffffff', minHeight: '100vh', padding: '1em' }}>
-      <Typography variant="h4" component="div" gutterBottom style={{ color: '#ffffff' }}>
-        Store
+    <Box sx={{ width: '93vw', margin: '', margin:'2em', padding: '2em', bgcolor: '#181818', color: '#ffffff', marginTop: '6em'}}>
+      <Typography variant="h6" component="div" gutterBottom style={{ color: '#999' }}>
+        Just for testing...
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: '4em', justifyContent: 'center' }}>
+      <Typography variant="h4" component="div" gutterBottom style={{ color: '#ffffff' }}>
+        <b>Purchase From Store</b>
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'row', paddingTop: '2em', paddingBottom: '2em', gap: '4em', justifyContent: 'center' }}>
         {[...Array(3)].map((_, index) => (
           <Card variant="outlined" key={index} sx={{ width: '22.5%', bgcolor: '#333', color: '#ffffff' }}>
             <CardContent>
@@ -31,7 +34,7 @@ const Store = () => {
                 Essentials
               </Typography>
               <Typography variant="h5" component="div">
-                Sofa
+                <b>Sofa</b>
               </Typography>
               <Typography variant="body2" component="div">
                 <img src="https://placehold.co/600x400" alt="Sofa" style={{ width: '100%', marginTop: '1em', marginBottom: '1em' }} />

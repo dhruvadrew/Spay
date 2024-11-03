@@ -25,11 +25,11 @@ const NavbarHook = () => {
 
     return (
       <ul className={listClassName}>
-        <li>
+        {/* <li>
           <NavLink to="/" className={linkClassName} onClick={closeMobileMenu}>
             Home
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink
             to="/store"
@@ -48,7 +48,7 @@ const NavbarHook = () => {
             About Us
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/favorite"
             className={linkClassName}
@@ -56,17 +56,18 @@ const NavbarHook = () => {
           >
             Favorite
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink
             to="/location"
             className={linkClassName}
             onClick={closeMobileMenu}
+            style={{ marginRight: "40px" }}
           >
             Location
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/get-started"
             className={`${linkClassName} ${buttonClassName}`}
@@ -74,7 +75,7 @@ const NavbarHook = () => {
           >
             Get Started
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     );
   };
