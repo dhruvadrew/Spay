@@ -3,8 +3,8 @@ import {InfoSec, InfoRow, InfoColumn, TextWrapper, TopLine, Heading, Subtitle, I
 import { Container, Button } from '../globalStyles'
 import { Link } from 'react-router-dom'
 
- const InfoSection = ({ 
-    
+ const InfoSection = ({
+
     primary,
     lightBg,
     topLine,
@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom'
                             <TopLine lightTopLine={lightTopLine}>{topLine}</TopLine>
                             <Heading lightText={lightText}>{headline}</Heading>
                             <Subtitle lightTextDesc={lightTextDesc}>{description}</Subtitle>
-                            <Link to='/sign-up'>
+                            <Link to='/store'>
                             <Button big fontBig primary={primary}>
                                 {buttonLabel}
                             </Button>
