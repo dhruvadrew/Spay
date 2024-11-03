@@ -31,13 +31,14 @@ const styles = {
         width: '100%'
     },
     name: {
-        fontSize: '16px',
+        font: "Montserrat", 
+        fontSize: '24px',
         fontWeight: 'bold'
     },
     price: {
-        fontSize: '16px',
+        fontSize: '50px',
         fontWeight: 'bold',
-        color: '#333',
+        color: '#FFFFFF',
         textAlign: 'right'
     }
 };

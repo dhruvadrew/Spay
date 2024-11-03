@@ -5,8 +5,8 @@ function Result() {
   return (
     <div>
         <ProductRow 
-        imageSrc='../images/test.png'
-        name="Sample Product" 
+        imageSrc= {require('../images/test.png')}
+        name="Vineego 50-in Modern Gray Chenille Sectional" 
         price="$29.99" 
         />
 
