@@ -2,18 +2,6 @@
   {
     "recommendations": [
       {
-        "symbol": "META",
-        "shares_to_sell": 34,
-        "expected_cash": 10200.0,
-        "reasoning": "META has the worst predicted decline next month (-7.2%) and a moderate decline tomorrow and next week. Selling a substantial portion maximizes cash generation while minimizing potential further losses."
-      }
-    ],
-    "total_cash_generated": 10200.0,
-    "strategy_explanation": "This strategy prioritizes minimizing potential losses by focusing on the stock with the worst long-term outlook (META).  Selling a larger chunk of META allows us to reach the target cash amount quickly and efficiently."
-  },
-  {
-    "recommendations": [
-      {
         "symbol": "GOOGL",
         "shares_to_sell": 1,
         "expected_cash": 2800.0,
