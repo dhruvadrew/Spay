@@ -16,10 +16,14 @@ function Result() {
   return (
     <div>
         <ProductRow 
-        imageSrc= {require('../images/test.png')}
+        itemNumber="5517679" 
+        imageSrc={require('../images/test.png')} 
         name="Vineego 50-in Modern Gray Chenille Sectional" 
-        price="$29.99" 
-        />
+        price="$429.99" 
+        rating={4} 
+        description="The modern sectional couch features a high-quality wooden frame with sturdy plastic legs. Its elegant chenille fabric surface complements your room's style perfectly. The fixed combination construction enhances stability and durability. This modular sofa includes a spacious double recliner, ideal for living room comfort. Its cushions are crafted from soft, elastic sponge material and filled with premium cotton for added softness and resilience.
+"
+    />
 
 
 
