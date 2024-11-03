@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ProductRow from '../components/ProductRow';
 import User from '../components/User'; // Import the User component
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, Button } from '@mui/material';
 import axios from 'axios';
+import User2 from '../components/User2';
 
 function Result() {
     const [activeTab, setActiveTab] = useState("Products");
@@ -10,6 +11,7 @@ function Result() {
         firstName: '',
         lastName: '',
         id: '',
+        balance: 0, // Add balance to user data state
         stocks: [] // Add stocks to user data state
     });
 
@@ -26,6 +28,7 @@ function Result() {
             if (userInfo) {
                 storeUserData(userInfo.first_name, userInfo.last_name, userInfo._id);
                 await fetchStocks(userInfo._id); // Fetch stocks for the user
+                await fetchAccountBalance(userInfo._id); // Fetch account balance
             }
         } catch (error) {
             console.error(error);
@@ -46,11 +49,26 @@ function Result() {
         }
     };
 
+    const fetchAccountBalance = async (userId) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/accountByCustomerId/${userId}`);
+            const accountData = response.data[0]; // Assuming response.data[0] contains account balance info
+            if (accountData) {
+                setUserData((prevData) => ({
+                    ...prevData,
+                    balance: accountData.balance // Update balance in userData
+                }));
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const storeUserData = (firstName, lastName, id) => {
         localStorage.setItem('firstName', firstName);
         localStorage.setItem('lastName', lastName);
         localStorage.setItem('userId', id);
-        setUserData({ firstName, lastName, id, stocks: [] }); // Initialize stocks as empty
+        setUserData({ firstName, lastName, id, balance: 0, stocks: [] }); // Initialize balance and stocks
     };
 
     const handleTabChange = (tab) => {
@@ -67,8 +85,10 @@ function Result() {
                     firstName: storedFirstName, 
                     lastName: storedLastName, 
                     id: storedId,
+                    balance: 0, // Reset balance to fetch updated value
                     stocks: storedStocks // Set stocks from local storage
                 });
+                fetchAccountBalance(storedId); // Fetch account balance when switching tabs
             }
         }
     };
@@ -104,18 +124,36 @@ function Result() {
                             description="The modern sectional couch features a high-quality wooden frame with sturdy plastic legs. Its elegant chenille fabric surface complements your room's style perfectly. The fixed combination construction enhances stability and durability. This modular sofa includes a spacious double recliner, ideal for living room comfort. Its cushions are crafted from soft, elastic sponge material and filled with premium cotton for added softness and resilience."
                         />
                     </CardContent>
+                    <div style={styles.userContainer}>
+                        <User2
+                            first_name=""
+                            last_name=""
+                            balance=""
+                            stocks={userData.stocks} // Pass stocks from state to User component
+                        />
+                    </div>
+                    <div style={styles.buttonContainer}>
+                        <Button variant="contained" style={styles.confirmButton}>
+                            Confirm
+                        </Button>
+                    </div>
                 </Card>
             )}
 
-            {/* Show User component for other tabs */}
+            {/* Show User component for Account Info tab */}
             {activeTab === "Account Info" && (
                 <div style={styles.userContainer}>
                     <User
                         first_name={userData.firstName}
                         last_name={userData.lastName}
-                        balance="$100.00" // Replace with actual balance if available
+                        balance={`$${userData.balance}`} // Display the actual balance
                         stocks={userData.stocks} // Pass stocks from state to User component
                     />
+                    <div style={styles.buttonContainer}>
+                        <Button onClick = {getReccomendation} variant="contained" style={styles.confirmButton}>
+                            Confirm
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>
@@ -171,5 +209,16 @@ const styles = {
         border: '1px solid #444', // Border for contrast
         width: '80%',
         margin: '0 auto', // Center the card
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '20px',
+    },
+    confirmButton: {
+        borderRadius: '25px', // Rounded corners
+        backgroundColor: '#5fc238', // Confirm button background color
+        color: '#ffffff', // Confirm button text color
+        marginBottom: '20px',
     },
 };

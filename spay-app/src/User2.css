@@ -1,0 +1,84 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align text to the left */
+    margin: 5px; /* Space around the container */
+    color: #ffffff; /* Text color for readability */
+}
+
+.user-name {
+    margin-left: 10px;
+    font-family: 'Roboto', sans-serif; /* Google Font */
+    font-size: 70px; /* Adjust size as needed */
+    font-weight: bold; /* Make it bold */
+    color: #ffffff; /* Text color */
+    margin: 0; /* Remove default margin */
+}
+
+.account-balance {
+    font-size: 24px; /* Smaller than the name */
+    margin-top: 10px; /* Space between name and balance */
+}
+
+.balance-label {
+    font-weight: 300; /* Thin font for the label */
+}
+
+.balance-amount {
+    font-weight: bold; /* Bold font for the amount */
+}
+
+.stocks-list {
+    margin-left: 2px;
+    margin-top: 20px; /* Space above the stocks list */
+}
+
+.stocks-title {
+    margin-left: 2px;
+}
+
+.stocks-container {
+    margin-left: 2px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column; /* Stack the stock cards vertically */
+    width: 100%; /* Full width */
+}
+
+.stock-card {
+    margin-top: 10px;
+    background-color: #444; /* Dark background for cards */
+    border-radius: 12px; /* Round corners */
+    padding: 15px; /* Padding inside cards */
+    margin-bottom: 10px; /* Space between cards */
+    width: 75vw; /* Full width of the viewport */
+    display: flex; /* Flexbox for inner alignment */
+    justify-content: space-between; /* Space between stock info and total value */
+    align-items: center; /* Center items vertically */
+}
+
+.stock-info {
+    display: flex; /* Flexbox for stock name and quantity/price */
+    flex-direction: column; /* Stack stock name and details vertically */
+    align-items: flex-start; /* Align to the left */
+}
+
+.ticker {
+    font-weight: bold; /* Make ticker bold */
+    font-size: 20px; /* Adjust size for ticker */
+}
+
+.quantity-price {
+    font-size: 16px; /* Font size for quantity and price */
+    color: #ddd; /* Light text color */
+}
+
+.quantity, .current-price {
+    margin: 2px 0; /* Space between quantity and price */
+}
+
+.total-value {
+    font-size: 18px; /* Font size for total value */
+    font-weight: bold; /* Bold for emphasis */
+    color: #5fc238; /* Green for total value */
+}
