@@ -82,31 +82,33 @@ const NavbarHook = () => {
 
   return (
     <header className="header">
-      <nav className="nav container">
-        <NavLink to="/" className="nav__logo">
-          SPAY
-        </NavLink>
+      <div className="navbar-background">
+        <nav className="nav container">
+          <NavLink to="/" className="nav__logo">
+            SPAY
+          </NavLink>
 
-        {isMobile && (
-          <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
-            <IoMenu />
-          </div>
-        )}
-
-        {isMobile ? (
-          <div
-            className={`nav__menu  ${isMenuOpen ? "show-menu" : ""}`}
-            id="nav-menu"
-          >
-            {renderNavLinks()}
-            <div className="nav__close" id="nav-close" onClick={toggleMenu}>
-              <IoClose />
+          {isMobile && (
+            <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
+              <IoMenu />
             </div>
-          </div>
-        ) : (
-          renderNavLinks()
-        )}
-      </nav>
+          )}
+
+          {isMobile ? (
+            <div
+              className={`nav__menu  ${isMenuOpen ? "show-menu" : ""}`}
+              id="nav-menu"
+            >
+              {renderNavLinks()}
+              <div className="nav__close" id="nav-close" onClick={toggleMenu}>
+                <IoClose />
+              </div>
+            </div>
+          ) : (
+            renderNavLinks()
+          )}
+        </nav>
+      </div>
     </header>
   );
 };
