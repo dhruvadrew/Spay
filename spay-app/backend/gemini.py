@@ -9,27 +9,22 @@ from dotenv import load_dotenv
 import nest_asyncio
 import uvicorn
 
-# Apply nest_asyncio to allow running asyncio in Jupyter
 nest_asyncio.apply()
 
-# Load environment variables
 load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 if not API_KEY:
     raise EnvironmentError("GEMINI_API_KEY environment variable is not set")
 
-# Configure Gemini
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel("gemini-1.5-pro")
 
-# Initialize FastAPI app
 app = FastAPI(title="Stock Selling Recommendations API")
 
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with specific origins
+    allow_origins=["http://localhost:3000"],  # Replace with specific origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -59,11 +54,11 @@ class Recommendation(BaseModel):
     total_cash_generated: float
     strategy_explanation: str
 
-# def clean_json_response(response_text: str) -> str:
-#     """Clean the JSON response from Gemini."""
-#     if response_text.startswith('json'):
-#         response_text = response_text[4:]
-#     return response_text.strip('`').strip()
+def clean_json_response(response_text: str) -> str:
+    """Clean the JSON response from Gemini."""
+    if response_text.startswith('json'):
+        response_text = response_text[4:]
+    return response_text.strip('`').strip()
 
 @app.post("/api/recommendations", response_model=List[Recommendation])
 async def get_selling_recommendations(request: SellingRequest):
