@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductRow from '../components/ProductRow';
+import { Card, CardContent } from '@mui/material';
 
 function Result() {
     const [activeTab, setActiveTab] = useState("Products");
@@ -34,14 +35,18 @@ function Result() {
 
             {/* Display content based on active tab */}
             {activeTab === "Payment Summary" && (
-                <ProductRow
-                    itemNumber="5517679"
-                    imageSrc={require('../images/test.png')}
-                    name="Vineego 50-in Modern Gray Chenille Sectional"
-                    price="$429.99"
-                    rating={4}
-                    description="The modern sectional couch features a high-quality wooden frame with sturdy plastic legs. Its elegant chenille fabric surface complements your room's style perfectly. The fixed combination construction enhances stability and durability. This modular sofa includes a spacious double recliner, ideal for living room comfort. Its cushions are crafted from soft, elastic sponge material and filled with premium cotton for added softness and resilience."
-                />
+              <Card style={styles.card}>
+                <CardContent>
+                  <ProductRow
+                      itemNumber="5517679"
+                      imageSrc={require('../images/test.png')}
+                      name="Vineego 50-in Modern Gray Chenille Sectional"
+                      price="$429.99"
+                      rating={4}
+                      description="The modern sectional couch features a high-quality wooden frame with sturdy plastic legs. Its elegant chenille fabric surface complements your room's style perfectly. The fixed combination construction enhances stability and durability. This modular sofa includes a spacious double recliner, ideal for living room comfort. Its cushions are crafted from soft, elastic sponge material and filled with premium cotton for added softness and resilience."
+                  />
+                </CardContent>
+              </Card>
             )}
         </div>
     );
@@ -53,6 +58,9 @@ const styles = {
     container: {
         padding: '20px',
         textAlign: 'center',
+        backgroundColor: '#121212', // Dark mode background for the container
+        color: '#ffffff', // White text for readability
+        minHeight: '100vh',
     },
     tabs: {
         display: 'flex',
@@ -64,7 +72,8 @@ const styles = {
         margin: '0 10px',
         border: '1px solid #ccc',
         borderRadius: '5px',
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#333', // Darker background for inactive tabs
+        color: '#ffffff', // White text for inactive tabs
         cursor: 'pointer',
     },
     activeTab: {
@@ -72,8 +81,14 @@ const styles = {
         margin: '0 10px',
         border: '1px solid #5fc238',
         borderRadius: '5px',
-        backgroundColor: '#5fc238',
-        color: '#fff',
+        backgroundColor: '#5fc238', // Green for active tab
+        color: '#ffffff', // White text for active tab
         cursor: 'pointer',
-    }
+    },
+    card: {
+        backgroundColor: '#333', // Dark background for the card
+        color: '#ffffff', // White text color for the card content
+        border: '1px solid #444', // Border for contrast
+        width: '80%'
+    },
 };
