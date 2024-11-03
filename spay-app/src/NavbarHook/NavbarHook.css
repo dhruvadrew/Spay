@@ -1,10 +1,24 @@
+/* NavbarHook.css */
+
+/* Black bar behind the navbar */
+.navbar-background {
+  background-color: black; /* Black background for the navbar */
+  height: var(--header-height) + 20px; /* Match header height */
+  width: 100%; /* Full width */
+  position: fixed; /* Fixed position at the top */
+  top: 0; /* Stick to the top */
+  left: 0; /* Align to the left */
+  z-index: var(--z-fixed) - 1; /* Behind the header */
+}
+
+/* Navbar header styles */
 .header {
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  background-color: transparent;
-  z-index: var(--z-fixed);
+  background-color: transparent; /* Keep it transparent */
+  z-index: var(--z-fixed); /* Ensure it's on top */
 }
 
 .nav {
@@ -12,67 +26,67 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  height: var(--header-height);
-  margin: 1rem;
+  height: var(--header-height); /* Use your defined height variable */
+  margin: 1rem; /* Margin for the navbar */
 }
 
 .nav__logo {
-  background: linear-gradient(90deg, #74eb13, #20cc76);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #74eb13, #20cc76); /* Gradient logo text */
+  -webkit-background-clip: text; /* Clip the background to text */
+  -webkit-text-fill-color: transparent; /* Fill color transparent for gradient */
   transition: color 0.4s;
-  font-size: 70px;
-  font-family: var(--second-font);
+  font-size: 70px; /* Font size for logo */
+  font-family: var(--second-font); /* Use second font */
 }
 
 .nav__toggle,
 .nav__close {
-  font-size: 1.5rem;
-  color: var(--title-color);
-  cursor: pointer;
+  font-size: 1.5rem; /* Font size for toggle/close */
+  color: var(--title-color); /* Color for icons */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
 .nav__cta {
-  background-color: var(--first-color);
-  color: var(--title-color);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  padding: 0.75rem 1.5rem;
+  background-color: var(--first-color); /* Button background color */
+  color: var(--title-color); /* Button text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Transition for background */
+  padding: 0.75rem 1.5rem; /* Padding for button */
 }
 
 .nav__list {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2.5rem;
+  display: flex; /* Flex display for nav list */
+  flex-direction: column; /* Column layout */
+  row-gap: 2.5rem; /* Gap between items */
 }
 
 .nav__link {
-  color: var(--title-color);
-  font-weight: var(--font-semi-bold);
-  transition: color 0.4s;
+  color: var(--title-color); /* Link color */
+  font-weight: var(--font-semi-bold); /* Semi-bold font weight */
+  transition: color 0.4s; /* Transition for color */
 }
 
 .nav__link:hover {
-  color: var(--first-color);
+  color: var(--first-color); /* Hover color */
 }
 
 .nav__close {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem;
+  position: absolute; /* Absolute positioning for close */
+  top: 1rem; /* Top position */
+  right: 1.5rem; /* Right position */
 }
 
 .show-menu {
-  right: 0;
+  right: 0; /* Position for showing menu */
 }
 
 .nav__list__web {
-  display: flex;
-  flex-direction: row;
-  column-gap: 2.5rem;
-  align-items: center;
-  list-style-type: none;
-  padding: 0;
+  display: flex; /* Flex display for web list */
+  flex-direction: row; /* Row layout */
+  column-gap: 2.5rem; /* Gap between items */
+  align-items: center; /* Center align items */
+  list-style-type: none; /* Remove list style */
+  padding: 0; /* Remove padding */
 }
