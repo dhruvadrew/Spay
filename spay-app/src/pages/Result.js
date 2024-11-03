@@ -6,82 +6,71 @@ import axios from 'axios';
 
 function Result() {
     const [activeTab, setActiveTab] = useState("Products");
+    const [userData, setUserData] = useState({
+        firstName: '',
+        lastName: '',
+        id: '',
+        stocks: [] // Add stocks to user data state
+    });
 
-    const stocksData = [
-        {
-          "ticker": "INFY",
-          "current_price": 20.77,
-          "quantity_owned": 50,
-          "total_value": 1038.50
-        },
-        {
-          "ticker": "COF",
-          "current_price": 163.86,
-          "quantity_owned": 30,
-          "total_value": 4915.80
-        },
-        {
-          "ticker": "BAND",
-          "current_price": 18.70,
-          "quantity_owned": 20,
-          "total_value": 374.00
-        },
-        {
-          "ticker": "AAPL",
-          "current_price": 222.85,
-          "quantity_owned": 15,
-          "total_value": 3342.75
-        },
-        {
-          "ticker": "MSFT",
-          "current_price": 410.01,
-          "quantity_owned": 10,
-          "total_value": 4100.10
-        },
-        {
-          "ticker": "AMZN",
-          "current_price": 197.87,
-          "quantity_owned": 5,
-          "total_value": 989.35
-        },
-        {
-          "ticker": "GOOGL",
-          "current_price": 171.27,
-          "quantity_owned": 8,
-          "total_value": 1370.16
-        },
-        {
-          "ticker": "TSLA",
-          "current_price": 248.85,
-          "quantity_owned": 12,
-          "total_value": 2986.20
-        },
-        {
-          "ticker": "META",
-          "current_price": 567.16,
-          "quantity_owned": 7,
-          "total_value": 3970.12
-        },
-        {
-          "ticker": "NVDA",
-          "current_price": 135.42,
-          "quantity_owned": 25,
-          "total_value": 3385.50
-        }
-      ];
-
-    // useEffect(() => {
-    //     getData();
-    // }, []);
+    useEffect(() => {
+        getData(); // Fetch data when the component mounts
+    }, []);
 
     const getData = async () => {
-        axios.get('http://127.0.0.1:8000/allCustomers')
-            .then(response => {
-                console.log(response.data)
-            })
-            .catch(error => {
-                
-            });
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/allCustomers');
+            const userInfo = response.data[0]; // Assuming response.data[0] contains user data
+            
+            // Update local storage with user info
+            if (userInfo) {
+                storeUserData(userInfo.first_name, userInfo.last_name, userInfo._id);
+                await fetchStocks(userInfo._id); // Fetch stocks for the user
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const fetchStocks = async (userId) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/stockByCustomerId/${userId}`);
+            const stockInfo = response.data || []; // Fallback to empty array if no stocks are returned
+            setUserData((prevData) => ({ 
+                ...prevData,
+                stocks: stockInfo // Update userData with stocks
+            }));
+            localStorage.setItem('stocks', JSON.stringify(stockInfo)); // Store stocks in local storage
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const storeUserData = (firstName, lastName, id) => {
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('lastName', lastName);
+        localStorage.setItem('userId', id);
+        setUserData({ firstName, lastName, id, stocks: [] }); // Initialize stocks as empty
+    };
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+        if (tab === "Account Info") {
+            // Refresh data when switching to Account Info
+            const storedFirstName = localStorage.getItem('firstName');
+            const storedLastName = localStorage.getItem('lastName');
+            const storedId = localStorage.getItem('userId');
+            const storedStocks = JSON.parse(localStorage.getItem('stocks')) || []; // Retrieve stocks from local storage
+
+            if (storedFirstName && storedLastName && storedId) {
+                setUserData({ 
+                    firstName: storedFirstName, 
+                    lastName: storedLastName, 
+                    id: storedId,
+                    stocks: storedStocks // Set stocks from local storage
+                });
+            }
+        }
     };
 
     return (
@@ -89,13 +78,13 @@ function Result() {
             {/* Tabs */}
             <div style={styles.tabs}>
                 <button
-                    onClick={() => setActiveTab("Payment Summary")}
+                    onClick={() => handleTabChange("Payment Summary")}
                     style={activeTab === "Payment Summary" ? styles.activeTab : styles.tab}
                 >
                     Payment Summary
                 </button>
                 <button
-                    onClick={() => setActiveTab("Account Info")}
+                    onClick={() => handleTabChange("Account Info")}
                     style={activeTab === "Account Info" ? styles.activeTab : styles.tab}
                 >
                     Account Info
@@ -119,9 +108,14 @@ function Result() {
             )}
 
             {/* Show User component for other tabs */}
-            {activeTab !== "Payment Summary" && (
+            {activeTab === "Account Info" && (
                 <div style={styles.userContainer}>
-                    <User first_name="Dhruva" last_name="Barua" balance=" $100.00" stocks = {stocksData}/>
+                    <User
+                        first_name={userData.firstName}
+                        last_name={userData.lastName}
+                        balance="$100.00" // Replace with actual balance if available
+                        stocks={userData.stocks} // Pass stocks from state to User component
+                    />
                 </div>
             )}
         </div>
