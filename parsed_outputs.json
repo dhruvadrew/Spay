@@ -1,0 +1,32 @@
+[
+  {
+    "recommendations": [
+      {
+        "symbol": "META",
+        "shares_to_sell": 33.34,
+        "expected_cash": 10002,
+        "reasoning": "META has the second-worst predicted decline next month (-7.2%) and selling approximately this many shares generates the required cash."
+      }
+    ],
+    "total_cash_generated": 10002,
+    "strategy_explanation": "Prioritized selling META due to the significant predicted decline next month. Selling a larger chunk of META minimizes the number of different stocks sold, keeping the portfolio more focused."
+  },
+  {
+    "recommendations": [
+      {
+        "symbol": "GOOGL",
+        "shares_to_sell": 1.79,
+        "expected_cash": 5012,
+        "reasoning": "GOOGL has the worst predicted decline next month (-7.3%), selling a portion generates roughly half the required cash and diversifies the sale across multiple stocks."
+      },
+      {
+        "symbol": "META",
+        "shares_to_sell": 16.66,
+        "expected_cash": 4998,
+        "reasoning": "META has the second worst decline next month. Selling a smaller portion than in the first version complements the sale of GOOGL to reach the target."
+      }
+    ],
+    "total_cash_generated": 10010,
+    "strategy_explanation": "This approach diversifies the sale across GOOGL and META, both of which have significant predicted declines next month. Selling some of each mitigates the risk associated with focusing on just one stock."
+  }
+]

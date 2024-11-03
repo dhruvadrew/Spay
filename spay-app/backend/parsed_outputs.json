@@ -3,24 +3,42 @@
     "recommendations": [
       {
         "symbol": "GOOGL",
-        "shares_to_sell": 1,
-        "expected_cash": 2800.0,
-        "reasoning": "GOOGL has a significant predicted decline next month (-7.3%), but less severe short-term declines. Selling a small amount helps diversify the sale and reduce overall portfolio risk."
-      },
-      {
-        "symbol": "AAPL",
-        "shares_to_sell": 24,
-        "expected_cash": 3600.0,
-        "reasoning": "AAPL shows a moderate decline across all timeframes. Selling a portion helps diversify the sale and contribute to the cash goal."
+        "shares_to_sell": 3,
+        "expected_cash": 8400.0,
+        "reasoning": "GOOGL has the worst predicted decline next month (-7.3%) and a high price per share, making it efficient for reaching the target cash amount."
       },
       {
         "symbol": "META",
-        "shares_to_sell": 20,
-        "expected_cash": 6000.0,
-        "reasoning": "META has a poor long-term outlook. Including it in the mix further reduces potential losses while diversifying the sale across all underperforming stocks."
+        "shares_to_sell": 5.4,
+        "expected_cash": 1620.0,
+        "reasoning": "META also has a significant predicted decline next month (-7.2%). Selling a smaller portion complements the GOOGL sale to reach the target."
       }
     ],
-    "total_cash_generated": 12400.0,
-    "strategy_explanation": "This strategy diversifies the sale across all underperforming assets, prioritizing the stock with the worst long-term outlook while also considering short-term declines.  This spreads the risk and aims to minimize potential further losses across the portfolio."
+    "total_cash_generated": 10020.0,
+    "strategy_explanation": "This strategy prioritizes selling GOOGL and META due to their poorer long-term outlook (next month's prediction).  It minimizes the number of different stocks sold by focusing on those with the highest potential losses."
+  },
+  {
+    "recommendations": [
+      {
+        "symbol": "AAPL",
+        "shares_to_sell": 20,
+        "expected_cash": 3000.0,
+        "reasoning": "AAPL has a moderate decline predicted, selling some shares helps diversify the sale and reduce risk associated with focusing on only two stocks."
+      },
+      {
+        "symbol": "GOOGL",
+        "shares_to_sell": 2,
+        "expected_cash": 5600.0,
+        "reasoning": "GOOGL still has the worst long-term outlook, so selling some shares remains a priority, albeit a smaller amount than in the less variability strategy."
+      },
+      {
+        "symbol": "META",
+        "shares_to_sell": 8,
+        "expected_cash": 2400.0,
+        "reasoning": "META also has a poor long-term outlook, selling a portion contributes to reaching the target while maintaining diversification."
+      }
+    ],
+    "total_cash_generated": 11000.0,
+    "strategy_explanation": "This strategy diversifies the sale across all three stocks, even though AAPL has a less severe predicted decline.  This spreads the risk and avoids over-reliance on selling only the worst-performing stocks.  It prioritizes GOOGL due to its higher price and worse long-term outlook while still leveraging META's negative prediction to reach the target cash amount."
   }
 ]
