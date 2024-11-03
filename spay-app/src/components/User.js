@@ -11,7 +11,7 @@ function User({ first_name, last_name, balance, stocks }) {
             <h1 className="user-name">{fullName}</h1>
             <p className="account-balance">
                 <span className="balance-label">Account Balance:</span> 
-                <span className="balance-amount">{balance}</span>
+                <span className="balance-amount">{parseFloat(balance.substring(1)).toFixed(2)}</span>
             </p>
             <div className="stocks-list">
                 <h2>Your Stocks</h2>

@@ -20,9 +20,7 @@ const Store = () => {
 
   return (
     <Box sx={{ width: '93vw', margin: '', margin:'2em', padding: '2em', bgcolor: '#181818', color: '#ffffff', marginTop: '6em'}}>
-      <Typography variant="h6" component="div" gutterBottom style={{ color: '#999' }}>
-        <b>Just for testing...</b>
-      </Typography>
+
       <Typography variant="h4" component="div" gutterBottom style={{ color: '#ffffff' }}>
         <b>Purchase From Store</b>
       </Typography>

@@ -26,7 +26,7 @@ function Result() {
     const getData = async () => {
         try {
             const response = await axios.get('http://127.0.0.1:8000/allCustomers');
-            const userInfo = response.data[0];
+            const userInfo = response.data[1];
 
             if (userInfo) {
                 storeUserData(userInfo.first_name, userInfo.last_name, userInfo._id);
@@ -124,7 +124,7 @@ function Result() {
     const postPurchase = async () => {
         if (userData.id && userData.secondRec) {
             try {
-                await axios.post(`http://127.0.0.1:8000/purchase/${userData.id}/${5000}`, userData.secondRec);
+                await axios.post(`http://127.0.0.1:8000/sellStock/${userData.id}?product=5000`, userData.secondRec);
                 console.log("Purchase confirmed!");
 
                 // Switch to "Account Info" tab and refresh account data
@@ -276,5 +276,6 @@ const styles = {
         color: '#ffffff',
         padding: '10px 30px',
         borderRadius: '5px',
+        marginBottom: '20px',
     },
 };
