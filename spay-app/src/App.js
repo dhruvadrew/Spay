@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import NavbarHook from "./NavbarHook/NavbarHook";
 import Home from "./pages/Home";
-import News from "./pages/News";
+import Store from "./pages/Store";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/news" element={<News />} />
+          <Route path="/store" element={<Store />} />
           {/* Define other routes that you need*/}
         </Routes>
       </main>

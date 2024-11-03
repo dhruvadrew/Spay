@@ -1,11 +1,12 @@
 import React from "react";
 
-const News = () => {
+
+const Store = () => {
   return (
     <div>
-      <p>News</p>
+      <p>Store</p>
     </div>
   );
 };
 
-export default News;
+export default Store;
