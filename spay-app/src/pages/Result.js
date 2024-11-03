@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductRow from '../components/ProductRow';
 import User from '../components/User'; // Import the User component
 import { Card, CardContent } from '@mui/material';
+import axios from 'axios';
 
 function Result() {
     const [activeTab, setActiveTab] = useState("Products");
@@ -74,9 +75,15 @@ function Result() {
     }, []);
 
     const getData = async () => {
-        const response = await fetch('https://fakestoreapi.com/products');
-        const data = await response.json();
-        console.log(data);
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(response => {
+                setData(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error);
+                setLoading(false);
+            });
     };
 
     return (

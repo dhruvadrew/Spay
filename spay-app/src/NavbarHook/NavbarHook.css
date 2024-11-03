@@ -1,14 +1,15 @@
 /* NavbarHook.css */
 
-/* Black bar behind the navbar */
+/* Solid-to-transparent gradient background for navbar */
 .navbar-background {
-  background-color: black; /* Black background for the navbar */
-  height: var(--header-height) + 20px; /* Match header height */
-  width: 100%; /* Full width */
-  position: fixed; /* Fixed position at the top */
-  top: 0; /* Stick to the top */
-  left: 0; /* Align to the left */
-  z-index: var(--z-fixed) - 1; /* Behind the header */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height); /* Height matching the navbar */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgb(255, 255, 255));
+  z-index: -1; /* Ensures it’s behind the navbar */
+  pointer-events: none; /* Prevents interference with clicks */
 }
 
 /* Navbar header styles */
