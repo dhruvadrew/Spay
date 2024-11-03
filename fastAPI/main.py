@@ -14,10 +14,12 @@ file_path = os.path.abspath('../Spay/spay-app/backend/stock_prediction.py')
 spec = importlib.util.spec_from_file_location("stock_prediction", file_path)
 stock_prediction = importlib.util.module_from_spec(spec)
 sys.modules["stock_prediction"] = stock_prediction
-spec.loader.exec_module(stock_prediction)
 
-# Now you can access `predict` from `stock_prediction`
-predict = stock_prediction.predict
+
+# spec.loader.exec_module(stock_prediction)
+
+# # Now you can access `predict` from `stock_prediction`
+# predict = stock_prediction.predict
 
 
 
@@ -57,10 +59,10 @@ app.add_middleware(
 )
 
 
-@app.get("/api/stock")
-async def predict_stock():
-    prediction_json = predict('ALG')
-    return json.dumps(prediction_json)
+# @app.get("/api/stock")
+# async def predict_stock():
+#     prediction_json = predict('ALG')
+#     return json.dumps(prediction_json)
 
 
 
@@ -331,7 +333,7 @@ async def get_recs(id:str, moneyNeeded:float):
     ]
 
     stocks = await stockByCustomerId(id)
-    #print(stocks)
+    print(stocks)
 
     for s in stocks:
         d = {
@@ -375,6 +377,37 @@ async def get_recs(id:str, moneyNeeded:float):
     return parsed_jsons
 
 
+
+async def withdraw(account, money):
+    data = {
+        "medium": "balance",
+        "amount": 50,
+    }
+
+    url = "http://api.nessieisreal.com/accounts/" + accountId+ "/withdrawals"
+
+    # Send the POST request with JSON data
+    response = requests.post(f"{url}?key={capitalKey}", json=data)
+
+    return response.json()
+
+
+
+async def deposit(account, money):
+    data = {
+        "medium": "balance",
+        "amount": 50,
+    }
+
+    url = "http://api.nessieisreal.com/accounts/" + accountId + "/withdrawals"
+
+    # Send the POST request with JSON data
+    response = requests.post(f"{url}?key={capitalKey}", json=data)
+
+    return response.json()
+
+
+
 @app.post('/sellStock/{id}')
 async def sell_stock(rec: Recommendations, id: str, product: float):
     #print(rec)
@@ -395,6 +428,11 @@ async def sell_stock(rec: Recommendations, id: str, product: float):
 
 
     print("TOTAL", rec.total_cash_generated)
+
+    #deposit\
+    deposit_response = await withdraw(accountId, 50)
+    print(deposit_response)
+
 
 
     return {"message": "Stock sold"}
