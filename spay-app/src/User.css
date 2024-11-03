@@ -1,7 +1,7 @@
 .user-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align text to the left */
+    align-items: center; /* Align text to the left */
     margin: 5px; /* Space around the container */
     color: #ffffff; /* Text color for readability */
 }
@@ -34,6 +34,9 @@
 .stocks-container {
     margin-top: 10px;
     display: flex;
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    width: 95vw; /* Full width */
     flex-direction: column; /* Stack the stock cards vertically */
     width: 100%; /* Full width */
 }

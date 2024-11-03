@@ -51,21 +51,23 @@
     border-radius: 12px; /* Round corners */
     padding: 15px; /* Padding inside cards */
     margin-bottom: 10px; /* Space between cards */
-    width: 75vw; /* Full width of the viewport */
+    width: 70vw; /* Full width of the viewport */
     display: flex; /* Flexbox for inner alignment */
     justify-content: space-between; /* Space between stock info and total value */
-    align-items: center; /* Center items vertically */
+    align-items: flex-start; /* Align items to the top */
 }
 
 .stock-info {
     display: flex; /* Flexbox for stock name and quantity/price */
     flex-direction: column; /* Stack stock name and details vertically */
     align-items: flex-start; /* Align to the left */
+    flex-grow: 1; /* Allow this to take available space */
 }
 
 .ticker {
     font-weight: bold; /* Make ticker bold */
     font-size: 20px; /* Adjust size for ticker */
+    margin-bottom: 8px; /* Add space below the ticker */
 }
 
 .quantity-price {
@@ -75,6 +77,12 @@
 
 .quantity, .current-price {
     margin: 2px 0; /* Space between quantity and price */
+}
+
+.stock-reasoning {
+    margin-top: 8px; /* Add space above the reasoning */
+    font-size: 14px; /* Adjust size for description */
+    color: #bbb; /* Lighter text color for reasoning */
 }
 
 .total-value {

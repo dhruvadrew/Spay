@@ -15,7 +15,7 @@ function User({ first_name, last_name, balance, stocks }) {
             </p>
             <div className="stocks-list">
                 <h2>Your Stocks</h2>
-                <div className="stocks-container">
+                <div className="stocks-container" align="center">
                     {stocks.map((stock, index) => (
                         <div key={index} className="stock-card">
                             <div className="stock-info">

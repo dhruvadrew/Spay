@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../User2.css'; // Make sure to create this CSS file
+import '../User2.css'; // Ensure this CSS file exists
 
 function User2({ first_name, last_name, balance, stocks }) {
     // Constructing the full name from props
@@ -13,24 +13,28 @@ function User2({ first_name, last_name, balance, stocks }) {
                 <span className="balance-amount">{balance}</span>
             </p>
             <div className="stocks-list">
-                <h2 className= "stocks-title">Your Stocks</h2>
+                <h2 className="stocks-title">Your Recommendations</h2>
                 <div className="stocks-container">
-                    {stocks.map((stock, index) => (
-                        <div key={index} className="stock-card">
-                            <div className="stock-info">
-                                <span className="ticker">{stock.ticker}</span>
-                                <div className="quantity-price">
-                                    <span className="quantity">Quantity: {stock.quantity_owned}</span>
-                                </div>
-                                <div className="quantity-price">
-                                    <span className="current-price">Current Price: ${stock.current_price.toFixed(2)}</span>
+                    {stocks.length > 0 ? (
+                        stocks.map((stock, index) => (
+                            <div key={index} className="stock-card">
+                                <div className="stock-info">
+                                    <span className="ticker">{stock.symbol}</span> {/* Use the symbol from the stock object */}
+                                    <div className="quantity-price">
+                                        <span className="quantity">Shares to Sell: {stock.shares_num}</span> {/* Use shares_num from the stock object */}
+                                    </div>
+                                    <div className="quantity-price">
+                                        <span className="current-price">Expected Cash: ${stock.expected.toFixed(2)}</span> {/* Use expected from the stock object */}
+                                    </div>
+                                    <div className="stock-reasoning">
+                                        <span className="reasoning">{stock.desc}</span> {/* Use reasoning for the description */}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="total-value">
-                                Total Value: ${stock.total_value.toFixed(2)}
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p>No recommendations available.</p>
+                    )}
                 </div>
             </div>
         </div>
@@ -44,10 +48,10 @@ User2.propTypes = {
     balance: PropTypes.string.isRequired,
     stocks: PropTypes.arrayOf(
         PropTypes.shape({
-            ticker: PropTypes.string.isRequired,
-            current_price: PropTypes.number.isRequired,
-            quantity_owned: PropTypes.number.isRequired,
-            total_value: PropTypes.number.isRequired,
+            symbol: PropTypes.string.isRequired, // Symbol of the stock
+            shares_num: PropTypes.number.isRequired, // Number of shares to sell
+            expected: PropTypes.number.isRequired, // Expected cash from selling
+            desc: PropTypes.string.isRequired, // Reasoning for the recommendation
         })
     ).isRequired,
 };
