@@ -8,16 +8,16 @@ from .models import Account, DebitAccount, StockRec, Recommendations
 import sys
 import os
 import importlib.util
-file_path = os.path.abspath('../Spay/spay-app/backend/stock_prediction.py')
+# file_path = os.path.abspath('../spay-app/backend/stock_prediction.py')
 
-# Load the module from the file path
-spec = importlib.util.spec_from_file_location("stock_prediction", file_path)
-stock_prediction = importlib.util.module_from_spec(spec)
-sys.modules["stock_prediction"] = stock_prediction
-spec.loader.exec_module(stock_prediction)
+# # Load the module from the file path
+# spec = importlib.util.spec_from_file_location("stock_prediction", file_path)
+# stock_prediction = importlib.util.module_from_spec(spec)
+# sys.modules["stock_prediction"] = stock_prediction
+# spec.loader.exec_module(stock_prediction)
 
-# Now you can access `predict` from `stock_prediction`
-predict = stock_prediction.predict
+# # Now you can access `predict` from `stock_prediction`
+# predict = stock_prediction.predict
 
 
 
@@ -57,10 +57,10 @@ app.add_middleware(
 )
 
 
-@app.get("/api/stock")
-async def predict_stock():
-    prediction_json = predict('ALG')
-    return json.dumps(prediction_json)
+# @app.get("/api/stock")
+# async def predict_stock():
+#     prediction_json = predict('ALG')
+#     return json.dumps(prediction_json)
 
 
 
@@ -258,7 +258,9 @@ Please analyze these stocks and tell me:
 2. How many shares of each to sell must be INTEGERS
 3. Why you made these recommendations
 
-Do not go over the cost of the product. If money needed is 10000, only sell until you reach 10000.
+
+
+Do not go over the cost of the product. If money needed is 10000,for examples only sell until you reach 10000.
 I need you to balance selling stocks that will decrease in the future with only selling stock until you reach the money required.
 
 Return ONLY text in the format of a JSON file as shown below. Make 2 versions. The 1st version would have less variability (focusing on selling more of the worst stocks), and the 2nd version would have more variability (focusing on selling a mix of stocks) MAKE SURE THE NUMBER OF SHARES IN AN INTEGER.:

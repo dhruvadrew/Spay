@@ -16,6 +16,7 @@ function Result() {
         recInfo: [],
         totalCashGenerated: 0,
         strategyExplanation: '',
+        secondRec: null,
     });
 
     useEffect(() => {
@@ -33,7 +34,7 @@ function Result() {
                 await fetchAccountBalance(userInfo._id);
             }
 
-            const response2 = await axios.get(`http://127.0.0.1:8000/getRecs?id=${userInfo._id}&moneyNeeded=450`);
+            const response2 = await axios.get(`http://127.0.0.1:8000/getRecs?id=${userInfo._id}&moneyNeeded=5000`);
             const recs = response2.data;
 
             if (recs.length > 1) {
@@ -50,6 +51,7 @@ function Result() {
                     recInfo: recommendations,
                     totalCashGenerated: secondRec.total_cash_generated,
                     strategyExplanation: secondRec.strategy_explanation,
+                    secondRec, // Store secondRec in state
                 }));
             }
 
@@ -112,8 +114,25 @@ function Result() {
                     recInfo: prevData.recInfo,
                     totalCashGenerated: prevData.totalCashGenerated,
                     strategyExplanation: prevData.strategyExplanation,
+                    secondRec: prevData.secondRec,
                 }));
                 fetchAccountBalance(storedId);
+            }
+        }
+    };
+
+    const postPurchase = async () => {
+        if (userData.id && userData.secondRec) {
+            try {
+                await axios.post(`http://127.0.0.1:8000/purchase/${userData.id}/${5000}`, userData.secondRec);
+                console.log("Purchase confirmed!");
+
+                // Switch to "Account Info" tab and refresh account data
+                setActiveTab("Account Info");
+                await fetchAccountBalance(userData.id);
+                await fetchStocks(userData.id);
+            } catch (error) {
+                console.error("Failed to confirm purchase:", error);
             }
         }
     };
@@ -142,7 +161,7 @@ function Result() {
                             itemNumber="5517679"
                             imageSrc={require('../images/test.png')}
                             name="Vineego 50-in Modern Gray Chenille Sectional"
-                            price="$450.00"
+                            price="$5000.00"
                             rating={4}
                             description="The modern sectional couch features a high-quality wooden frame with sturdy plastic legs. Its elegant chenille fabric surface complements your room's style perfectly. The fixed combination construction enhances stability and durability. This modular sofa includes a spacious double recliner, ideal for living room comfort. Its cushions are crafted from soft, elastic sponge material and filled with premium cotton for added softness and resilience."
                         />
@@ -161,7 +180,7 @@ function Result() {
                         </p>
                     </div>
                     <div style={styles.buttonContainer}>
-                        <Button variant="contained" style={styles.confirmButton}>
+                        <Button variant="contained" style={styles.confirmButton} onClick={postPurchase}>
                             Confirm
                         </Button>
                     </div>
@@ -177,7 +196,7 @@ function Result() {
                         stocks={userData.stocks}
                     />
                     <div style={styles.buttonContainer}>
-                        <Button onClick={console.log("ye")} variant="contained" style={styles.confirmButton}>
+                        <Button variant="contained" style={styles.confirmButton}>
                             Confirm
                         </Button>
                     </div>
@@ -245,9 +264,7 @@ const styles = {
         marginTop: '20px',
     },
     strategyText: {
-        padding: '0 20px',  // Adds padding to the left and right
-        textAlign: 'center',   // Aligns text to the left
-        color: '#ffffff',
+        padding: '0 20px',  // Adds padding to the text within the card
     },
     buttonContainer: {
         display: 'flex',
@@ -255,10 +272,9 @@ const styles = {
         marginTop: '20px',
     },
     confirmButton: {
-        borderRadius: '25px',
         backgroundColor: '#5fc238',
         color: '#ffffff',
-        marginBottom: '20px',
+        padding: '10px 30px',
+        borderRadius: '5px',
     },
 };
-
