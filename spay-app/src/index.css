@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Merriweather+Sans:ital,wght@0,600&display=swap');
-* {
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Merriweather+Sans:ital,wght@0,600&family=Inter:wght@300&family=Titillium+Web:wght@300&display=swap');* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -13,6 +12,7 @@
   --body-color: hsl(0, 0%, 0%);
   --body-font: "Montserrat", sans-serif;
   --second-font: "Merriweather Sans", sans-serif;
+  --third-font: "Anta", sans-serif;
   --h2-font-size: 1.25rem;
   --small-font-size: 0.813rem;
   --font-semi-bold: 600;
