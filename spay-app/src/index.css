@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Merriweather+Sans:ital,wght@1,600&display=swap');
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,12 +7,12 @@
 
 :root {
   --header-height: 3.5rem;
-  --first-color: hsl(28, 88%, 62%);
+  --first-color: hsl(103, 55%, 49%);
   --title-color: hsl(0, 0%, 95%);
   --text-color: hsl(0, 0%, 75%);
   --body-color: hsl(0, 0%, 6%);
   --body-font: "Montserrat", sans-serif;
-  --second-font: "Dancing Script", cursive;
+  --second-font: "Audiowide", sans-serif;
   --h2-font-size: 1.25rem;
   --small-font-size: 0.813rem;
   --font-semi-bold: 600;
