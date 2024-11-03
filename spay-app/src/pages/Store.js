@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Card, Typography, CardActions, CardContent, Button, Modal } from '@mui/material';
+import { Link } from 'react-router-dom'
+
 
 const bull = (
   <Box
@@ -39,7 +41,7 @@ const Store = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="large" onClick={handleOpen} >
+              <Button size="medium" variant='outlined' onClick={handleOpen} style={{color: '#ffffff', borderColor: '#ffffff', marginLeft:'10px', marginBottom:'10px'}}>
                 Buy now
               </Button>
             </CardActions>
@@ -75,7 +77,9 @@ const Store = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               <Button variant="outlined" sx={{ width: '90%', color: '#ffffff', borderColor: '#ffffff' }}>Paypal</Button>
               <Button variant="outlined" sx={{ width: '90%', color: '#ffffff', borderColor: '#ffffff' }}>Credit Card</Button>
+              <Link style={{ width: '100%'}} to='/result'>
               <Button variant="outlined" sx={{ width: '90%', color: '#ffffff', borderColor: '#ffffff' }}>SPay</Button>
+              </Link>
             </Box>
           </Typography>
         </Box>
