@@ -1,0 +1,16 @@
+.user-container {
+    position: absolute; /* Positioning it in the top left */
+    top: 0;
+    left: 0;
+    margin: 20px; /* Margin for some spacing */
+}
+
+.user-name {
+    font-family: 'Roboto', sans-serif; /* Using Google Font Roboto */
+    font-size: 48px; /* Adjust size as needed */
+    font-weight: bold; /* Make it bold */
+    color: #333; /* Text color */
+}
+
+/* Include the Google Fonts in your index.html or import in your CSS file */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
