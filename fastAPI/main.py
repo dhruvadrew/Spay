@@ -22,13 +22,12 @@ import importlib.util
 # predict = stock_prediction.predict
 
 
-
 capitalKey = "e771edccbc20793962729f6c3dd26599"
-accountId = "67271aa19683f20dd518b2a3"
-customerId = "6726e6dd9683f20dd518b2a2"
+accountId = "6727995e9683f20dd518b2b4"
+customerId = "672798c79683f20dd518b2b3"
 
 STOCKMAP = {
-    "6726e6dd9683f20dd518b2a2": {
+    "672798c79683f20dd518b2b3": {
         "INFY": 50,
         "COF": 30,
         "BAND": 20,
@@ -41,6 +40,79 @@ STOCKMAP = {
         "NVDA": 25
     }
 }
+
+STOCKDATA = [
+    {
+        "Current Price": 226.21000671386722,
+        "Projected Day 1": 219.8439178466797,
+        "Projected Day 3": 222.4191131591797,
+        "Projected Week 1": 215.5614013671875,
+        "Ticket Name": "AAPL"
+    },
+    {
+        "Current Price": 185.1300048828125,
+        "Projected Day 1": 184.5870361328125,
+        "Projected Day 3": 187.47122192382812,
+        "Projected Week 1": 186.8582763671875,
+        "Ticket Name": "AMZN"
+    },
+    {
+        "Current Price": 17.200000762939453,
+        "Projected Day 1": 16.95759391784668,
+        "Projected Day 3": 17.139467239379883,
+        "Projected Week 1": 16.63374900817871,
+        "Ticket Name": "BAND"
+    },
+    {
+        "Current Price": 146.8000030517578,
+        "Projected Day 1": 142.54664611816406,
+        "Projected Day 3": 150.8544921875,
+        "Projected Week 1": 142.59912109375,
+        "Ticket Name": "COF"
+    },
+    {
+        "Current Price": 166.99000549316406,
+        "Projected Day 1": 162.72882080078125,
+        "Projected Day 3": 162.48391723632812,
+        "Projected Week 1": 158.20803833007812,
+        "Ticket Name": "GOOGL"
+    },
+    {
+        "Current Price": 22.13637351989746,
+        "Projected Day 1": 22.230262756347656,
+        "Projected Day 3": 22.22386360168457,
+        "Projected Week 1": 22.18189811706543,
+        "Ticket Name": "INFY"
+    },
+    {
+        "Current Price": 576.469970703125,
+        "Projected Day 1": 556.1390991210938,
+        "Projected Day 3": 569.3258666992188,
+        "Projected Week 1": 543.375732421875,
+        "Ticket Name": "META"
+    },
+    {
+        "Current Price": 420.69000244140625,
+        "Projected Day 1": 415.2096862792969,
+        "Projected Day 3": 422.6711730957031,
+        "Projected Week 1": 414.783447265625,
+        "Ticket Name": "MSFT"
+    },
+    {
+        "Current Price": 117.0,
+        "Projected Day 1": 118.17425537109375,
+        "Projected Day 3": 119.96070098876953,
+        "Projected Week 1": 126.68101501464844,
+        "Ticket Name": "NVDA"
+    },
+    {
+        "Current Price": 258.0199890136719,
+        "Projected Day 1": 251.97117614746094,
+        "Projected Day 3": 261.18377685546875,
+        "Projected Week 1": 268.1878356933594,
+        "Ticket Name": "TSLA"
+    }
+]
 
 #IF WE WANT TO ALLOW USERNAME PASSWORD TO AUTHENTICATE
 dummyMap = {("username", "password"), "6726e6dd9683f20dd518b2a2"}
@@ -124,19 +196,16 @@ async def stockByCustomerId(id: str):
 
     # Fetch stock data using Yahoo Finance
     def stockPrice(ticker):
-        stock = yf.Ticker(ticker)
-    
-        intraday_data = stock.history(period="1d", interval="1m")  # 1-minute interval data
-
-        latest_price = intraday_data['Close'].iloc[-1]  # Get the last closing price
-        latest_time = intraday_data.index[-1]  # Get the timestamp of the last price
-        return latest_price
+        for k in STOCKDATA:
+            if k["Ticket Name"] == ticker:
+                return k["Current Price"]
     
 
     OUTPUT = []
     for t, q in STOCKMAP[id].items():
         name = t
         price = stockPrice(name)
+        print(price)
         quanity = q                       
         total = quanity * price
 
@@ -341,16 +410,17 @@ async def get_recs(id:str, moneyNeeded:float):
     stocks = await stockByCustomerId(id)
     print(stocks)
 
-    for s in stocks:
+    for s in STOCKDATA:
         d = {
-            "symbol": s['ticker'],
-            "current_price": s['current_price'],
-            "quantity": s['quantity_owned'],
-            "next_day_change": -2.1,
-            "next_week_change": -0.5,
-            "next_month_change": 7.2
+            "symbol": s['Ticket Name'],
+            "current_price": s['Current Price'],
+            "quantity": STOCKMAP[id][s['Ticket Name']],
+            "next_day_change": s["Projected Day 1"],
+            "next_week_change": s["Projected Day 3"],
+            "next_month_change": s["Projected Week 1"]
         }
         stockData.append(d)
+
 
     print(stockData)
     print(len(stockData))
@@ -387,7 +457,7 @@ async def get_recs(id:str, moneyNeeded:float):
 async def withdraw(account, money):
     data = {
         "medium": "balance",
-        "amount": 50,
+        "amount": money
     }
 
     url = "http://api.nessieisreal.com/accounts/" + accountId+ "/withdrawals"
@@ -402,10 +472,10 @@ async def withdraw(account, money):
 async def deposit(account, money):
     data = {
         "medium": "balance",
-        "amount": 50,
+        "amount": money
     }
 
-    url = "http://api.nessieisreal.com/accounts/" + accountId + "/withdrawals"
+    url = "http://api.nessieisreal.com/accounts/" + accountId + "/deposits"
 
     # Send the POST request with JSON data
     response = requests.post(f"{url}?key={capitalKey}", json=data)
@@ -436,7 +506,9 @@ async def sell_stock(rec: Recommendations, id: str, product: float):
     print("TOTAL", rec.total_cash_generated)
 
     #deposit\
-    deposit_response = await withdraw(accountId, 50)
+    deposit_response = await deposit(accountId, rec.total_cash_generated)
+    print(deposit_response)
+    deposit_response = await withdraw(accountId, product)
     print(deposit_response)
 
 
