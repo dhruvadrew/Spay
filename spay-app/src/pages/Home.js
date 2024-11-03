@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
+import InfoSection from '../components/InfoSection.js';
+import { homeObjOne, homeObjThree, homeObjTwo, homeObjFour} from './Data';
 
 const Home = () => {
-  return (
-    <div>
-      <p>Home</p>
-    </div>
-  );
-};
+    return (
+        <>
+            <InfoSection {...homeObjOne} />
+        </>
+    )
+}
 
 export default Home;

@@ -14,12 +14,19 @@
   position: relative;
   height: var(--header-height);
   margin: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .nav__logo {
-  color: var(--first-color);
+  background: linear-gradient(90deg, #87d647, #339b67);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: color 0.4s;
-  font-size: var(--h2-font-size);
+  font-size: 50px;
+  line-height: 50px;
+  margin-left: 30px;
+  letter-spacing: 0.05em;
   font-family: var(--second-font);
 }
 

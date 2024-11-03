@@ -25,18 +25,18 @@ const NavbarHook = () => {
 
     return (
       <ul className={listClassName}>
-        <li>
+        {/* <li>
           <NavLink to="/" className={linkClassName} onClick={closeMobileMenu}>
             Home
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink
-            to="/news"
+            to="/store"
             className={linkClassName}
             onClick={closeMobileMenu}
           >
-            News
+            Store
           </NavLink>
         </li>
         <li>
@@ -48,7 +48,7 @@ const NavbarHook = () => {
             About Us
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/favorite"
             className={linkClassName}
@@ -56,17 +56,18 @@ const NavbarHook = () => {
           >
             Favorite
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink
             to="/location"
             className={linkClassName}
             onClick={closeMobileMenu}
+            style={{ marginRight: "40px" }}
           >
             Location
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/get-started"
             className={`${linkClassName} ${buttonClassName}`}
@@ -74,38 +75,40 @@ const NavbarHook = () => {
           >
             Get Started
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     );
   };
 
   return (
     <header className="header">
-      <nav className="nav container">
-        <NavLink to="/" className="nav__logo">
-          Navigation Bar
-        </NavLink>
+      <div className="navbar-background">
+        <nav className="nav container">
+          <NavLink to="/" className="nav__logo">
+            SPAY
+          </NavLink>
 
-        {isMobile && (
-          <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
-            <IoMenu />
-          </div>
-        )}
-
-        {isMobile ? (
-          <div
-            className={`nav__menu  ${isMenuOpen ? "show-menu" : ""}`}
-            id="nav-menu"
-          >
-            {renderNavLinks()}
-            <div className="nav__close" id="nav-close" onClick={toggleMenu}>
-              <IoClose />
+          {isMobile && (
+            <div className="nav__toggle" id="nav-toggle" onClick={toggleMenu}>
+              <IoMenu />
             </div>
-          </div>
-        ) : (
-          renderNavLinks()
-        )}
-      </nav>
+          )}
+
+          {isMobile ? (
+            <div
+              className={`nav__menu  ${isMenuOpen ? "show-menu" : ""}`}
+              id="nav-menu"
+            >
+              {renderNavLinks()}
+              <div className="nav__close" id="nav-close" onClick={toggleMenu}>
+                <IoClose />
+              </div>
+            </div>
+          ) : (
+            renderNavLinks()
+          )}
+        </nav>
+      </div>
     </header>
   );
 };

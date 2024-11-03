@@ -68,11 +68,11 @@ const Navbar = () => {
                 Location
               </NavLink>
             </li>
-            <li className="nav__item">
+            {/* <li className="nav__item">
               <NavLink to="/get-started" className="nav__link nav__cta">
                 Get Started
               </NavLink>
-            </li>
+            </li> */}
           </ul>
           <div className="nav__close" id="nav-close" onClick={toggleMenu}>
             <IoClose />
