@@ -75,14 +75,12 @@ function Result() {
     }, []);
 
     const getData = async () => {
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('http://127.0.0.1:8000/allCustomers')
             .then(response => {
-                setData(response.data);
-                setLoading(false);
+                console.log(response.data)
             })
             .catch(error => {
-                setError(error);
-                setLoading(false);
+                
             });
     };
 

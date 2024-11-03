@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 
 export const InfoSec = styled.div`
-  color: #fff;
+  color: #000000;
   padding: 10em 0;
-  background: ${({lightBg}) => (lightBg ? '#181818' : '#181818')};
+  background: ${({lightBg}) => (lightBg ? '#000000' : '#000000')};
   width: 93.25vw;
   margin-left: 2vw;
   margin-top: 5vh;
