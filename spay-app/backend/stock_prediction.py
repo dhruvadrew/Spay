@@ -127,17 +127,30 @@ def predict(ticker):
     df_predictions = pd.concat(predictions, ignore_index=True)
     df_combined = pd.concat([df_real, df_predictions], ignore_index=True)
 
+    # Plot Open and Open_predicted curves
+    plt.figure(figsize=(10, 6))
+    plt.plot(df_real['Date'], df_real['Open'], label='Actual Open Price', color='blue')
+    plt.plot(df_combined['Date'], df_combined['Open_predicted'], label='Predicted Open Price', color='orange')
+    plt.xlabel('Date')
+    plt.ylabel('Stock Price')
+    plt.title('Actual vs Predicted Open Prices')
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.show()
+
     dict = {"Current Day 1: ": float(df_combined["Close"].iloc[-8]), "Projected Day 1: ": float(df_combined["Close_predicted"].iloc[-7]), "Projected Day 3: ": float(df_combined["Close_predicted"].iloc[-4]), "Projected Week 1:" : float(df_combined["Close_predicted"].iloc[-1])}
     return dict
 
-for ticker in ["INFY", "COF","BAND","AAPL","MSFT","AMZN","GOOGL","TSLA","META","NVDA"]:
+predict('MSFT')
 
-    res = predict(ticker)
+# for ticker in ["INFY", "COF","BAND","AAPL","MSFT","AMZN","GOOGL","TSLA","META","NVDA"]:
 
-    file_path = f"predictions{ticker}"
+#     res = predict(ticker)
 
-    with open(file_path, "w") as json_file:
-        json.dump(res, json_file, indent=4)
+#     file_path = f"predictions{ticker}"
+
+#     with open(file_path, "w") as json_file:
+#         json.dump(res, json_file, indent=4)
 
 
 
