@@ -10,12 +10,13 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import yfinance as yf
+import json
 
 load_dotenv()
 
 api_key = os.getenv("API_KEY")
 
-def create_sequence(dataset, skip, seq_length=30):
+def create_sequence(dataset, skip, seq_length=60):
     # Using .iloc to handle integer-based indexing for rows
     sequences = [dataset.iloc[i:i+seq_length].values for i in range(len(dataset) - seq_length - skip)]
     labels = [dataset.iloc[i + seq_length + skip - 1].values for i in range(len(dataset) - seq_length - skip)]
@@ -24,7 +25,7 @@ def create_sequence(dataset, skip, seq_length=30):
 
 def get_prediction(ticker, skip):
     stock = yf.Ticker(ticker)
-    df = stock.history(start='2018-11-03', end='2024-09-01', interval='1d').reset_index()
+    df = stock.history(start='2018-11-03', end='2024-10-02', interval='1d').reset_index()
 
     df_selected = df[["Date", "Open", "Close"]]
 
@@ -83,33 +84,6 @@ def get_prediction(ticker, skip):
 
     df_slic_data[['Open', 'Close']] = Ms.inverse_transform(df_slic_data[['Open', 'Close']])
 
-    # future_predictions = predict_future_prices(df_slic_data, model, Ms, days=60)
-
-    # df_combined = pd.concat([df_slic_data, future_predictions], ignore_index=True)
-
-    # # Plot the Open prices, continuing the line into future predictions
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(df_combined['Date'], df_combined['Open'], label='Actual Open Price', color='blue')
-    # plt.plot(df_combined['Date'], df_combined['Open_predicted'], label='Predicted Open Price', color='orange')
-    # plt.xlabel('Timestamp', fontsize=15)
-    # plt.ylabel('Stock Price', fontsize=15)
-    # plt.title('Actual vs Predicted Open Prices', fontsize=15)
-    # plt.xticks(rotation=45)
-    # plt.legend()
-    # plt.show()
-
-    # # Plot the Close prices, continuing the line into future predictions
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(df_combined['Date'], df_combined['Close'], label='Actual Close Price', color='blue')
-    # plt.plot(df_combined['Date'], df_combined['Close_predicted'], label='Predicted Close Price', color='orange')
-    # plt.xlabel('Timestamp', fontsize=15)
-    # plt.ylabel('Stock Price', fontsize=15)
-    # plt.title('Actual vs Predicted Close Prices', fontsize=15)
-    # plt.xticks(rotation=45)
-    # plt.legend()
-    # plt.show()
-    
-
     return df_slic_data, model, Ms
 
 def predict_future_prices(df, model, scaler, skip, days=1):
@@ -138,44 +112,60 @@ def predict_future_prices(df, model, scaler, skip, days=1):
 
     return future_predictions
 
-predictions = []
-df_real = 0
-for i in range(1, 31, 1):
-    df_selected, model, Ms = get_prediction("AAPL", i)
-    if i == 1:
-        df_real = df_selected
-    pred = predict_future_prices(df_selected, model, Ms, i)
-    predictions.append(pred)
-print(predictions)
-print(df_real)
 
-stock = yf.Ticker('AAPL')
-df_test = stock.history(start='2018-11-03', end='2024-11-01', interval='1d').reset_index()
-df_test = df_test[int(len(df_test) * 0.80):].reset_index(drop=True)
+def predict(ticker):
 
-df_predictions = pd.concat(predictions, ignore_index=True)
-df_combined = pd.concat([df_real, df_predictions], ignore_index=True)
+    predictions = []
+    df_real = 0
+    for i in range(1, 8, 1):
+        df_selected, model, Ms = get_prediction(ticker, i)
+        if i == 1:
+            df_real = df_selected
+        pred = predict_future_prices(df_selected, model, Ms, i)
+        predictions.append(pred)
 
-# Plot Open and Open_predicted curves
-plt.figure(figsize=(10, 6))
-plt.plot(df_test['Date'], df_test['Open'], label='Actual Open Price', color='blue')
-plt.plot(df_predictions['Date'], df_predictions['Open_predicted'], label='Predicted Open Price', color='orange')
-plt.xlabel('Date')
-plt.ylabel('Stock Price')
-plt.title('Actual vs Predicted Open Prices')
-plt.xticks(rotation=45)
-plt.legend()
-plt.show()
+    df_predictions = pd.concat(predictions, ignore_index=True)
+    df_combined = pd.concat([df_real, df_predictions], ignore_index=True)
 
-plt.figure(figsize=(10, 6))
-plt.plot(df_combined['Date'], df_combined['Close'], label='Actual Close Price', color='blue')
-plt.plot(df_combined['Date'], df_combined['Close_predicted'], label='Predicted Open Price', color='orange')
-plt.xlabel('Date')
-plt.ylabel('Stock Price')
-plt.title('Actual vs Predicted Close Prices')
-plt.xticks(rotation=45)
-plt.legend()
-plt.show()
+    dict = {"Current Day 1: ": float(df_combined["Close"].iloc[-8]), "Projected Day 1: ": float(df_combined["Close_predicted"].iloc[-7]), "Projected Day 3: ": float(df_combined["Close_predicted"].iloc[-4]), "Projected Week 1:" : float(df_combined["Close_predicted"].iloc[-1])}
+    return dict
+
+for ticker in ["INFY", "COF","BAND","AAPL","MSFT","AMZN","GOOGL","TSLA","META","NVDA"]:
+
+    res = predict(ticker)
+
+    file_path = f"predictions{ticker}"
+
+    with open(file_path, "w") as json_file:
+        json.dump(res, json_file, indent=4)
+
+
+
+# print(predictions)
+# print(df_real)
+
+
+
+# # Plot Open and Open_predicted curves
+# plt.figure(figsize=(10, 6))
+# plt.plot(df_real['Date'], df_real['Open'], label='Actual Open Price', color='blue')
+# plt.plot(df_combined['Date'], df_combined['Open_predicted'], label='Predicted Open Price', color='orange')
+# plt.xlabel('Date')
+# plt.ylabel('Stock Price')
+# plt.title('Actual vs Predicted Open Prices')
+# plt.xticks(rotation=45)
+# plt.legend()
+# plt.show()
+
+# plt.figure(figsize=(10, 6))
+# plt.plot(df_real['Date'], df_real['Close'], label='Actual Close Price', color='blue')
+# plt.plot(df_combined['Date'], df_combined['Close_predicted'], label='Predicted Open Price', color='orange')
+# plt.xlabel('Date')
+# plt.ylabel('Stock Price')
+# plt.title('Actual vs Predicted Close Prices')
+# plt.xticks(rotation=45)
+# plt.legend()
+# plt.show()
 
 
 

@@ -2,8 +2,24 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 import yfinance as yf
-
+import json
 from .models import Account, DebitAccount, StockRec, Recommendations
+
+import sys
+import os
+import importlib.util
+file_path = os.path.abspath('../Spay/spay-app/backend/stock_prediction.py')
+
+# Load the module from the file path
+spec = importlib.util.spec_from_file_location("stock_prediction", file_path)
+stock_prediction = importlib.util.module_from_spec(spec)
+sys.modules["stock_prediction"] = stock_prediction
+spec.loader.exec_module(stock_prediction)
+
+# Now you can access `predict` from `stock_prediction`
+predict = stock_prediction.predict
+
+
 
 capitalKey = "e771edccbc20793962729f6c3dd26599"
 accountId = "67271aa19683f20dd518b2a3"
@@ -41,9 +57,10 @@ app.add_middleware(
 )
 
 
-@app.get("/api/hello")
-async def hello():
-    return {"message": "Hello from FastAPI!"}
+@app.get("/api/stock")
+async def predict_stock():
+    prediction_json = predict('ALG')
+    return json.dumps(prediction_json)
 
 
 
