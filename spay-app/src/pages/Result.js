@@ -70,9 +70,9 @@ function Result() {
         }
       ];
 
-    useEffect(() => {
-        getData();
-    }, []);
+    // useEffect(() => {
+    //     getData();
+    // }, []);
 
     const getData = async () => {
         axios.get('http://127.0.0.1:8000/allCustomers')
