@@ -241,6 +241,9 @@ Please analyze these stocks and tell me:
 2. How many shares of each to sell must be INTEGERS
 3. Why you made these recommendations
 
+Do not go over the cost of the product. If money needed is 10000, only sell until you reach 10000.
+I need you to balance selling stocks that will decrease in the future with only selling stock until you reach the money required.
+
 Return ONLY text in the format of a JSON file as shown below. Make 2 versions. The 1st version would have less variability (focusing on selling more of the worst stocks), and the 2nd version would have more variability (focusing on selling a mix of stocks) MAKE SURE THE NUMBER OF SHARES IN AN INTEGER.:
 {{
     "recommendations": [
@@ -283,35 +286,53 @@ Prioritize selling stocks with the worst long-term outlook."""
 
 @app.get("/getRecs")
 async def get_recs(id:str, moneyNeeded:float):
-    underperforming_stocks = [
-        {
-            "symbol": "AAPL",
-            "current_price": 150.0,
-            "quantity": 100,
-            "next_day_change": -1.5,
-            "next_week_change": -3.2,
-            "next_month_change": -6.8
-        },
-        {
-            "symbol": "GOOGL",
-            "current_price": 2800.0,
-            "quantity": 10,
-            "next_day_change": -0.8,
-            "next_week_change": -2.1,
-            "next_month_change": -7.3
-        },
-        {
-            "symbol": "META",
-            "current_price": 300.0,
-            "quantity": 50,
-            "next_day_change": -2.1,
-            "next_week_change": -0.5,
-            "next_month_change": -7.2
-        }
+    stockData = [
+        # {
+        #     "symbol": "AAPL",
+        #     "current_price": 150.0,
+        #     "quantity": 100,
+        #     "next_day_change": 1.5,
+        #     "next_week_change": -3.2,
+        #     "next_month_change": -6.8
+        # },
+        # {
+        #     "symbol": "GOOGL",
+        #     "current_price": 2800.0,
+        #     "quantity": 10,
+        #     "next_day_change": -0.8,
+        #     "next_week_change": 2.1,
+        #     "next_month_change": -7.3
+        # },
+        # {
+        #     "symbol": "META",
+        #     "current_price": 300.0,
+        #     "quantity": 50,
+        #     "next_day_change": -2.1,
+        #     "next_week_change": -0.5,
+        #     "next_month_change": 7.2
+        # }
     ]
 
+    stocks = await stockByCustomerId(id)
+    #print(stocks)
+
+    for s in stocks:
+        d = {
+            "symbol": s['ticker'],
+            "current_price": s['current_price'],
+            "quantity": s['quantity_owned'],
+            "next_day_change": -2.1,
+            "next_week_change": -0.5,
+            "next_month_change": 7.2
+        }
+        stockData.append(d)
+
+    print(stockData)
+    print(len(stockData))
+
+
     # Get recommendations for generating $10,000
-    recommendations = get_selling_recommendations(underperforming_stocks, 10000)
+    recommendations = get_selling_recommendations(stockData, moneyNeeded)
 
     # Define a regex pattern to capture JSON objects from the response
     json_pattern = r'\{(?:[^{}]|(?:\{[^{}]*\}))*\}'
@@ -337,12 +358,26 @@ async def get_recs(id:str, moneyNeeded:float):
     return parsed_jsons
 
 
-@app.post('/sellStock')
-async def sell_stock(rec: Recommendations):
+@app.post('/sellStock/{id}')
+async def sell_stock(rec: Recommendations, id: str, product: float):
     #print(rec)
+    owned_stocks = STOCKMAP[id]
+    for r in owned_stocks:
+        print(r, owned_stocks[r])
+
+
 
     for r in rec.recommendations:
         print(f"Selling {r.shares_to_sell} shares of {r.symbol}")
+        STOCKMAP[id][r.symbol] -= r.shares_to_sell
+
+
+    owned_stocks = STOCKMAP[id]
+    for r in owned_stocks:
+        print(r, owned_stocks[r])
+
+
+    print("TOTAL", rec.total_cash_generated)
 
 
     return {"message": "Stock sold"}
