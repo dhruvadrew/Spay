@@ -3,11 +3,26 @@ from fastapi.middleware.cors import CORSMiddleware
 import requests
 import yfinance as yf
 
-from .models import Account, DebitAccount
+from .models import Account, DebitAccount, StockRec, Recommendations
 
 capitalKey = "e771edccbc20793962729f6c3dd26599"
 accountId = "67271aa19683f20dd518b2a3"
 customerId = "6726e6dd9683f20dd518b2a2"
+
+STOCKMAP = {
+    "6726e6dd9683f20dd518b2a2": {
+        "INFY": 50,
+        "COF": 30,
+        "BAND": 20,
+        "AAPL": 15,
+        "MSFT": 10,
+        "AMZN": 5,
+        "GOOGL": 8,
+        "TSLA": 12,
+        "META": 7,
+        "NVDA": 25
+    }
+}
 
 #IF WE WANT TO ALLOW USERNAME PASSWORD TO AUTHENTICATE
 dummyMap = {("username", "password"), "6726e6dd9683f20dd518b2a2"}
@@ -80,21 +95,6 @@ async def customerById(id: str):
 @app.get("/stockByCustomerId/{id}")
 async def stockByCustomerId(id: str):
     
-    STOCKMAP = {
-        "6726e6dd9683f20dd518b2a2": {
-            "INFY": 50,
-            "COF": 30,
-            "BAND": 20,
-            "AAPL": 15,
-            "MSFT": 10,
-            "AMZN": 5,
-            "GOOGL": 8,
-            "TSLA": 12,
-            "META": 7,
-            "NVDA": 25
-        }
-    }
-
     if id not in STOCKMAP:
         return {"message": "No Customer or Error"}
     
@@ -238,10 +238,10 @@ Here are my stocks that are predicted to decline:
     prompt += f"""
 Please analyze these stocks and tell me:
 1. Which stocks I should sell
-2. How many shares of each to sell (can be partial/in decimal)
+2. How many shares of each to sell must be INTEGERS
 3. Why you made these recommendations
 
-Return ONLY text in the format of a JSON file as shown below. Make 2 versions. The 1st version would have less variability (focusing on selling more of the worst stocks), and the 2nd version would have more variability (focusing on selling a mix of stocks):
+Return ONLY text in the format of a JSON file as shown below. Make 2 versions. The 1st version would have less variability (focusing on selling more of the worst stocks), and the 2nd version would have more variability (focusing on selling a mix of stocks) MAKE SURE THE NUMBER OF SHARES IN AN INTEGER.:
 {{
     "recommendations": [
         {{
@@ -281,8 +281,8 @@ Prioritize selling stocks with the worst long-term outlook."""
             return None
 
 
-@app.post("/getRecs")
-async def get_recs():
+@app.get("/getRecs")
+async def get_recs(id:str, moneyNeeded:float):
     underperforming_stocks = [
         {
             "symbol": "AAPL",
@@ -335,3 +335,15 @@ async def get_recs():
     # print("JSON blocks successfully saved to parsed_outputs.json")
 
     return parsed_jsons
+
+
+@app.post('/sellStock')
+async def sell_stock(rec: Recommendations):
+    #print(rec)
+
+    for r in rec.recommendations:
+        print(f"Selling {r.shares_to_sell} shares of {r.symbol}")
+
+
+    return {"message": "Stock sold"}
+
